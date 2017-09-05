@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>XCGI Test Page</title>
+<style type=text/css>
+body {
+	margin-top:  100px;
+	margin-left: 100px;
+}
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+
+<% XCGI_CopyLeft(); %>
+
+$(function() {
+	var title = $(document).attr("title");
+	title += " (XCGI Author: " + XCGI_CopyLeft.author + ")";
+	$(document).attr("title", title);
+
+	$("#xcgi_author").html(XCGI_CopyLeft.author);
+	$('#xcgi_birth').html(XCGI_CopyLeft.birth);
+
+	$("input:text", "#div1").keydown(function(e) {
+		var c = 0;
+		if ($.browser.msie) {
+			e = event;
+			c = event.keyCode;
+		} else {
+			c = e.which;
+		}
+		if (e.shiftKey || e.altKey || e.ctrlKey) {
+			return false;
+		}
+		switch(c) {
+		case	8:
+		case	9:
+		case	37:
+		case	39:
+		case	46:
+			return true;
+
+		default:
+			if (c > 47 && c < 58) {
+				return true;
+			}
+		}
+		return false;
+	}).focus(function() {
+		this.style.imeMode='disabled';
+	});
+
+	$("#add").click(function() {
+		if ($("#num1").val().length == 0) {
+			$("#num1").focus();
+			alert("Please input number!");
+			return false;
+		}
+		if ($("#num2").val().length == 0) {
+			$("#num2").focus();
+			alert("Please input number!");
+			return false;
+		}
+
+		var post_param = {
+			"num1": $("#num1").val(),
+			"num2": $("#num2").val()
+		};
+		$.post("/XCGI_Form/XCGI_AJAX_Add", post_param, function(data) {
+			$("#num3").val(data);
+		});
+	});
+});
+
+//]]>
+</script>
+
+</head>
+
+<body>
+
+<p><% XCGI_HelloWorld(); %></p>
+
+<p>XCGI_Author:<span id="xcgi_author"></span></p>
+
+<p>XCGI_Birthday:<span id="xcgi_birth"></span></p>
+
+<p>XCGI function call:<% XCGI_StringJoin(1997, "HongKong", "go", "home"); %></p>
+
+<div id="div1">
+<input type="text" size="12" maxlength="8" id="num1" />&nbsp;+&nbsp;
+<input type="text" size="12" maxlength="8" id="num2" />&nbsp;
+<button id="add">XCGI_AJAX_Add =</button>&nbsp;
+<input type="text" size="12" readonly="readonly" id="num3" />
+</div>
+
+</body>
+</html>
