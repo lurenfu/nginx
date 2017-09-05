@@ -3,4 +3,4 @@ An official read-only mirror of http://hg.nginx.org/nginx/ which is updated hour
 
 This repository is forked from https://github.com/nginx/nginx at 2017-09-03 13:36 GMT-8 by lurenfu.
 
-I will add a useful module which is name ngx_http_xcgi_module.c for nginx. This module will make developer easy to developing CGI programms with C programming language for embedded devices. PHP/Python/Ruby/Node.js is sometimes too heavy for embedded devices, and C language is more appropriate.
+I will add a useful module which is name ngx_http_xcgi_module.c for nginx. This module will make the developers easier to developing CGI programms with C programming language for embedded devices. PHP/Python/Ruby/Node.js is sometimes too heavy for embedded devices, and C language is more appropriate.

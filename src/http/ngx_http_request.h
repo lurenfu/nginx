@@ -149,6 +149,13 @@
 #define NGX_HTTP_SUB_BUFFERED              0x02
 #define NGX_HTTP_COPY_BUFFERED             0x04
 
+#undef NGX_HTTP_XCGI
+#define NGX_HTTP_XCGI 1
+
+#if (NGX_HTTP_XCGI)
+#define NGX_HTTP_XCGI_BUFFERED             0x08
+#endif
+
 
 typedef enum {
     NGX_HTTP_INITING_REQUEST_STATE = 0,
@@ -428,6 +435,10 @@ struct ngx_http_request_s {
     ngx_uint_t                        ncaptures;
     int                              *captures;
     u_char                           *captures_data;
+#endif
+
+#if (NGX_HTTP_XCGI)
+    void                             *xcgi_var;
 #endif
 
     size_t                            limit_rate;
